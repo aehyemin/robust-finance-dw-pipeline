@@ -8,5 +8,6 @@ CREATE TABLE raw.trades (
     quantity TEXT,
     price TEXT,
     trade_ts TEXT,
+    version TEXT,
     ingested_at TIMESTAMPTZ DEFAULT NOW()
 );

@@ -8,6 +8,7 @@ CREATE TABLE dw.trades (
     quantity NUMERIC(24, 8) NOT NULL CHECK(quantity > 0),
     price NUMERIC(24, 8) NOT NULL CHECK(price > 0),
     trade_ts TIMESTAMPTZ NOT NULL,
+    version INT NOT NULL CHECK (version>=1),
     ingested_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

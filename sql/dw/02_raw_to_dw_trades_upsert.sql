@@ -1,7 +1,7 @@
 BEGIN;
 
-INSERT INTO dw.trades (trade_id, user_id, symbol, side, quantity, price, trade_ts, ingested_at )
-SELECT
+INSERT INTO dw.trades (trade_id, user_id, symbol, side, quantity, price, trade_ts, version, ingested_at )
+SELECT DISTINCT ON (trade_id)
     trade_id::bigint,
     user_id::bigint,
     upper(trim(symbol)),
@@ -9,6 +9,7 @@ SELECT
     quantity::NUMERIC(24, 8),
     price::NUMERIC(24, 8),
     trade_ts::TIMESTAMPTZ,
+    version::int,
     COALESCE(ingested_at, NOW())
 FROM raw.trades
 
@@ -21,6 +22,12 @@ WHERE
     AND price ~ '^\d+(\.\d+)?$'
     AND trade_ts IS NOT NULL
     AND trade_ts <> ''
+    AND version::int >= 1
+    AND version ~ '^\d+$'
+
+
+ORDER BY
+    trade_id, version::int DESC
 
 ON CONFLICT (trade_id)
 DO UPDATE SET
@@ -30,6 +37,10 @@ DO UPDATE SET
     quantity = EXCLUDED.quantity,
     price = EXCLUDED.price,
     trade_ts = EXCLUDED.trade_ts,
-    ingested_at = GREATEST(dw.trades.ingested_at, EXCLUDED.ingested_at);
+    version = EXCLUDED.version,
+    ingested_at = GREATEST(dw.trades.ingested_at, EXCLUDED.ingested_at)
+
+WHERE
+    EXCLUDED.version > dw.trades.version;     
 
 COMMIT;
