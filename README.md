@@ -1,4 +1,4 @@
-# Robust Finance DW Pipeline
+# Robust Finance ELT Pipeline
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-336791?logo=postgresql&logoColor=white)
@@ -29,7 +29,7 @@
 
 1. 레포지토리 클론
    ```
-   git clone https://github.com/aehyemin/robust-finance-dw-pipeline.git
+   git clone https://github.com/aehyemin/Robust-Finance-ELT-Pipeline.git
    ```
 2. 환경 구성 및 실행
    ```
