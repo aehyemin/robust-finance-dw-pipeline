@@ -136,7 +136,7 @@ ORDER BY stat_date;
 
 ### 폴더 구조
 ```
-robust-finance-dw-pipeline/
+Robust-Finance-ELT-Pipeline/
 ├── docker-compose.yml        # PostgreSQL / (Optional) Airflow 컨테이너 구성
 ├── README.md
 ├── .env
