@@ -33,12 +33,13 @@
    ```
 2. 환경 구성 및 실행
    ```
-   cd robust-finance-dw-pipeline
+   cd Robust-Finance-ELT-Pipeline
+   echo "AIRFLOW_UID=50000" > .env
    docker compose up -d
    ```
 3. 가상 Raw 데이터 생성
    ```
-   python scripts/generate_fake_data.py
+   python3 scripts/generate_fake_data.py
    ```
 4. Raw Layer 구축
    ```
@@ -59,7 +60,7 @@
    docker exec -i postgres_dw psql -U dw -d dw < sql/dw/02_raw_to_dw_trades_upsert.sql
 
    #3) DW 정합성 검증
-   docker exec -i postgres_dw psql -U dw -d dw < sql/dw/03_dw_validation.sql
+   docker exec -i postgres_dw psql -U dw -d dw < sql/dw/00_dw_validation.sql
    ```
 6. Mart Layer 구축
    ```
