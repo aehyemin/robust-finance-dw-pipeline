@@ -24,7 +24,7 @@ DO UPDATE SET
     price = EXCLUDED.price,
     trade_ts = EXCLUDED.trade_ts,
     version = EXCLUDED.version,
-    ingested_at = EXCLUDED.ingested_at,
+    ingested_at = NOW(),
     stat_date = EXCLUDED.stat_date,
     trade_amount = EXCLUDED.trade_amount
 WHERE

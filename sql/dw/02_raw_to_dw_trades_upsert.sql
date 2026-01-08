@@ -38,7 +38,7 @@ DO UPDATE SET
     price = EXCLUDED.price,
     trade_ts = EXCLUDED.trade_ts,
     version = EXCLUDED.version,
-    ingested_at = GREATEST(dw.trades.ingested_at, EXCLUDED.ingested_at)
+    ingested_at = NOW()
 
 WHERE
     EXCLUDED.version > dw.trades.version;     
